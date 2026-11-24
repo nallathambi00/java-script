@@ -1,19 +1,133 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson2 変数とデータ型</title>
+  <title>STOCK PULSE | 在庫マネジメントシステム (演習用)</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <main>
-    <p class="note">プロフィールデータを変数で管理し、画面とConsoleに表示します。</p>
-    <div id="profile" class="card"></div>
-  </main>
-  <script src="script.js"></script>
-</body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="brand-area">
+        <h1 class="app-title">STOCK PULSE</h1>
+        <p class="app-subtitle">在庫マネジメントシステム [演習用初期コード]</p>
+      </div>
+      <div class="system-status">
+        <span class="status-dot"></span>
+        <span>システム正常稼働中</span>
+      </div>
+    </header>
 
+    <section class="summary-grid" aria-label="在庫主要指標">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">登録品目数</span>
+          <span class="metric-category-tag">マスター</span>
+        </div>
+        <div class="metric-value">
+          <span id="metric-total-items">-</span>
+          <span class="metric-unit">品目</span>
+        </div>
+        <div class="metric-subtext">登録済み全商品</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">総在庫数量</span>
+          <span class="metric-category-tag">倉庫現品</span>
+        </div>
+        <div class="metric-value">
+          <span id="metric-total-stock">-</span>
+          <span class="metric-unit">点</span>
+        </div>
+        <div class="metric-subtext">全商品の個数合計</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">在庫総評価額</span>
+          <span class="metric-category-tag">資産評価</span>
+        </div>
+        <div class="metric-value">
+          <span id="metric-total-value">-</span>
+          <span class="metric-unit">円</span>
+        </div>
+        <div class="metric-subtext">単価 × 在庫数の総合計</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">要補充品目数</span>
+          <span class="metric-category-tag">発注基準</span>
+        </div>
+        <div class="metric-value">
+          <span id="metric-low-stock">-</span>
+          <span class="metric-unit">品目</span>
+        </div>
+        <div class="metric-subtext">安全在庫以下の商品</div>
+      </div>
+    </section>
+
+    <main class="content-card">
+      <div class="toolbar">
+        <div class="filter-buttons">
+          <button id="btn-filter-all" class="btn active" type="button">
+            すべて表示
+            <span id="counter-all" class="btn-counter">0</span>
+          </button>
+          <button id="btn-filter-low" class="btn" type="button">
+            要補充のみ
+            <span id="counter-low" class="btn-counter">0</span>
+          </button>
+        </div>
+
+        <div class="tools-right">
+          <input type="text" id="search-input" class="search-input" placeholder="商品名・カテゴリで検索..." aria-label="商品検索">
+          <select id="sort-select" class="select-box" aria-label="並び替え">
+            <option value="default">並び替え: 標準 (ID順)</option>
+            <option value="price-asc">価格が安い順</option>
+            <option value="price-desc">価格が高い順</option>
+            <option value="stock-asc">在庫が少ない順</option>
+            <option value="stock-desc">在庫が多い順</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="stock-table">
+          <thead>
+            <tr>
+              <th class="col-id">ID</th>
+              <th>商品名</th>
+              <th>カテゴリ</th>
+              <th class="col-number">単価 (円)</th>
+              <th class="col-number">現在庫 / 安全在庫</th>
+              <th class="col-number">在庫評価額</th>
+              <th style="text-align: center;">ステータス</th>
+            </tr>
+          </thead>
+          <tbody id="stock-table-body">
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div>表示中: <strong id="current-view-count">0</strong> 件 / 全 <span id="total-view-count">0</span> 件</div>
+        <div>※ 在庫数が安全在庫以下の商品は要補充として判定されます</div>
+      </div>
+    </main>
+
+    <aside class="test-link-banner">
+      <div>
+        <strong>動作確認テストランナー</strong>
+        <p>実装した関数のユニットテスト（全21項目）を一括検証できます。</p>
+      </div>
+      <a href="test.html" class="test-btn">テストを実行する</a>
+    </aside>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>
